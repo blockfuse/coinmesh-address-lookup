@@ -22,7 +22,9 @@ export class HttpWrapper {
     });
   }
   post(path, body) {
-    return this.http.post(path, body);
+    return this.http.post(path, body).then(result => {
+      return result.content;
+    });
   }
   patch(path, body) {
     return this.http.patch(path, body);

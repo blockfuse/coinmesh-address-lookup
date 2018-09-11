@@ -1,0 +1,26 @@
+<div aurelia-app="main">
+  <div class="address-lookup-placeholder"></div>
+
+  <script>
+    var getQueryParam = function(paramName) {
+      return new URL(window.location.href).searchParams.get(paramName);
+    };
+    var showDonate = getQueryParam('showDonate') || false;
+    var address = getQueryParam('address') || false;
+
+    var element = `
+<address-lookup
+  ${showDonate ? 'show-donate="true"' : '' }
+  address="${address}">
+</address-lookup>
+`;
+    var parentEl = document.querySelector('.address-lookup-placeholder');
+    parentEl.innerHTML = element;
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.36/system.js"></script>
+  <script src="https://services.blockfuse.io/litecoin-address-lookup/config.js"></script>
+  <script>
+    System.import('aurelia-bootstrapper');
+  </script>
+</div>
