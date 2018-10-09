@@ -11,7 +11,7 @@ module.exports = (duration) => {
     } else {
       res.sendResponse = res.send;
       res.send = (body) => {
-        memCached.put(key, body, duration * 1000);
+        memCache.put(key, body, duration * 1000);
         res.sendResponse(body);
       }
       next();

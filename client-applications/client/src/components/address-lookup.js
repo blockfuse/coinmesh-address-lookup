@@ -24,7 +24,7 @@ export class AddressLookup {
       address: this.address
     }).then(res => {
       console.log(res)
-      this.balance = JSON.parse(res.result);
+      this.balance = res.result;
     }).catch(e => {
       console.error(e);
     });

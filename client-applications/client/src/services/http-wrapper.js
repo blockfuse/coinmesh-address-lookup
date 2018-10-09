@@ -23,6 +23,8 @@ export class HttpWrapper {
   }
   post(path, body) {
     return this.http.post(path, body).then(result => {
+console.log(result.content)
+console.log(typeof result.content)
       return result.content;
     });
   }
