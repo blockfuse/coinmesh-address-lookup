@@ -1,7 +1,7 @@
 const { JsonRpcRequest, jsonRpcClient } = require('../services/json-rpc');
 
 class AddressesService {
-  listReceivedByAddress(minConfirmations = 0, includeEmpty = true, includeWatchOnly = false) {
+  listReceivedByAddress(minConfirmations = 0, includeEmpty = true, includeWatchOnly = true) {
     let request = {
       method: 'listreceivedbyaddress',
       params: [
@@ -24,10 +24,13 @@ class AddressesService {
   }
 
   importAddress(address, label = 'Watched Addresses', reScan = false) {
+	  console.log('-'.repeat(100))
+	  console.log('RESCANNING?');
+	  console.log(reScan);
     let request = {
       method: 'importaddress',
       params: [
-        address, label, reScan
+        address, label, false
       ],
       id: 'importaddress'
     };
@@ -38,9 +41,12 @@ class AddressesService {
   async getReceivedByAddress(address, minConfirmations = 0) {
     try {
       const addresses = await this.listReceivedByAddress();
-      await this.importAddress(address, address, true);
+console.log('='.repeat(100));
+console.log(addresses)
+      await this.importAddress(address, address);
     } catch (e) {
-      
+console.log(e);
+     throw new Error(e.message); 
     }
 
     let request = {

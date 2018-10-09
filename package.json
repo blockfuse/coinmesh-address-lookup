@@ -5,7 +5,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "npm install && concurrently \"npm run client\" \"npm run logic-services\" \"npm run adapters\"",
+    "start": "npm install && concurrently \"npm run logic-services\" \"npm run adapters\"",
     "client": "cd ./client-applications/client && npm start",
     "logic-services": "concurrently \"cd ./logic-services/wallet && npm start\"",
     "adapters": "concurrently \"cd ./adapters/litecoind-adapter && npm start\"",

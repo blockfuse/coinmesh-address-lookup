@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const addressesService = require('../index').addressesService;
+const cache = require('../cache');
+console.log('-'.repeat(100))
+console.log('cache loaded');
+console.log(cache)
 
 router.post('/listaddresses', (req, res, next) => {
   const minConfirmations = req.body.minConfirmations;
@@ -24,9 +28,11 @@ router.get('/getnewaddress/:account_name?', (req, res, next) => {
   });
 });
 
-router.post('/getreceivedbyaddress', (req, res, next) => {
+router.post('/getreceivedbyaddress', cache(3600), (req, res, next) => {
   const address = req.body.address;
   const minConfirmations = req.body.minConfirmations;
+console.log('-'.repeat(100))
+console.log('received getreceivedbyaddress request')
 
   addressesService.getReceivedByAddress(address, minConfirmations)
     .then(result => res.json(result));
